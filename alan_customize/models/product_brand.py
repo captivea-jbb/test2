@@ -5,10 +5,10 @@ from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
 
-class SalesOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+# class SalesOrderLine(models.Model):
+#     _inherit = 'sale.order.line'
     
-    website_lot_info = fields.Char(string="Website CTR Lot information")
+#     website_lot_info = fields.Char(string="Website CTR Lot information")
 
 class SalesOrder(models.Model):
     _inherit = 'sale.order'
@@ -215,9 +215,9 @@ class SalesOrder(models.Model):
 
             # Added by Captivea, the rest is base Odoo - 05/07/2021 - BEGIN
 
-            _logger.warning("++++++++++++++++++++++++ ENTERED HERE ++++++++++++++++++++++++")
-            if kwargs.get('lot_info'):
-                values['website_lot_info'] = self.get_lot_info(product_id=product, quantity=quantity)
+            # _logger.warning("++++++++++++++++++++++++ ENTERED HERE ++++++++++++++++++++++++")
+            # if kwargs.get('lot_info'):
+            #     values['website_lot_info'] = self.get_lot_info(product_id=product, quantity=quantity)
 
             # Added by Captivea - 05/07/2021 - END
 
