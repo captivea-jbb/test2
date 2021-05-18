@@ -5,25 +5,25 @@ from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
 
-class Transfer(models.Model):
-    _inherit = 'stock.picking'
+# class Transfer(models.Model):
+#     _inherit = 'stock.picking'
 
-    state_delivery = fields.Selection([
-        ('draft', 'Draft'),
-        ('waiting', 'Waiting Another Operation'),
-        ('confirmed', 'Waiting'),
-        ('assigned', 'In Stock'),
-        ('done', 'Print Docs'),
-        ('completed', 'Completed'),
-        ('cancel', 'Cancelled'),
-    ], string='Status', compute='_compute_state',
-        copy=False, index=True, readonly=True, store=True, track_visibility='onchange',
-        help=" * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
-             " * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows).\n"
-             " * Waiting: if it is not ready to be sent because the required products could not be reserved.\n"
-             " * Ready: products are reserved and ready to be sent. If the shipping policy is 'As soon as possible' this happens as soon as anything is reserved.\n"
-             " * Done: has been processed, can't be modified or cancelled anymore.\n"
-             " * Cancelled: has been cancelled, can't be confirmed anymore.")
+#     state_delivery = fields.Selection([
+#         ('draft', 'Draft'),
+#         ('waiting', 'Waiting Another Operation'),
+#         ('confirmed', 'Waiting'),
+#         ('assigned', 'In Stock'),
+#         ('done', 'Print Docs'),
+#         ('completed', 'Completed'),
+#         ('cancel', 'Cancelled'),
+#     ], string='Status', compute='_compute_state',
+#         copy=False, index=True, readonly=True, store=True, track_visibility='onchange',
+#         help=" * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
+#              " * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows).\n"
+#              " * Waiting: if it is not ready to be sent because the required products could not be reserved.\n"
+#              " * Ready: products are reserved and ready to be sent. If the shipping policy is 'As soon as possible' this happens as soon as anything is reserved.\n"
+#              " * Done: has been processed, can't be modified or cancelled anymore.\n"
+#              " * Cancelled: has been cancelled, can't be confirmed anymore.")
 
 class CTRLotNumber(models.Model):
     _name= 'x_ctr_lot'
