@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Multi Variant Add to Cart',
+    'category': 'Website',
+    'summary': "List product attribute options on a product's details page with quantity Box with quick add to cart.",
+    'version': '1.1',
+	'license' : 'OPL-1',
+    'author': 'Atharva System',
+    'website': 'https://www.atharvasystem.com',
+    'support': 'support@atharvasystem.com',
+    'description': """
+Multi Variant Add to Cart,
+Website Multi Variant Add to Cart,
+website_variant_cart,
+Multiple Variant Add to Cart,
+Website Product Variants Add to Cart, 
+Bulk Order,
+website Bulk Add to cart,
+Wholesale Bulk order,
+Add multiple variants, 
+        """,
+    'depends': ['website_sale'],
+    'installable': True,
+    'data': [  
+        'views/templates.xml',
+    ],
+    'installable': True,
+    'images': ['static/description/Multi-Variantbanner.jpg'],
+    'price': 25.00,
+    'currency': 'EUR',
+    'application': True,
+}
