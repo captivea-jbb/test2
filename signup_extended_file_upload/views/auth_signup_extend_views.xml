@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+      <template id="auth_signup_fields_form" inherit_id="auth_signup.signup" name="Sign up Extend">
+          <xpath expr="//form[hasclass('oe_signup_form')]" position="replace">
+              <form class="oe_signup_form" role="form" method="post" t-if="not message" enctype="multipart/form-data">
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                  <t t-call="auth_signup.fields">
+                      <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                  </t>
+
+                  <p class="alert alert-danger" t-if="error" role="alert">
+                      <t t-esc="error"/>
+                  </p>
+                  <input type="hidden" name="redirect" value="/thank-you"/>
+                  <input type="hidden" name="token" t-att-value="token"/>
+                  <div class="text-center oe_login_buttons pt-3">
+                      <button type="submit" class="btn btn-primary btn-block"> Sign up</button>
+                      <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-link btn-sm" role="button">Already have an account?</a>
+                      <div class="o_login_auth"/>
+                  </div>
+              </form>
+          </xpath>
+      </template>
+
+        <template id="auth_signup_fields_extend" inherit_id="auth_signup.fields" name="Signup Fields Extend">
+            <xpath expr="//div[hasclass('field-login')]" position="before">
+              <h1 class="page_headers" style="padding: 27px 0 26px;    font-family: 'Montserrat', sans-serif;
+                                              font-size: 20px;
+                                              font-weight: 700;
+                                              margin: 0;
+                                              letter-spacing: .1em;
+                                              text-transform: uppercase;">
+                                              TRADE ONLY REGISTRATION
+              </h1>
+              <div class="category-header" id="registrationHeader">
+                <div style="margin-top: -7px">
+                  By submitting this registration, you are warranting that you are a valid retail business, that you are making wholesale tax-exempt purchases for resale, and that you agree to be bound by this Agreement. We reserve the right to cancel orders or terminate relationships in our sole discretion. </div>
+                  <div>
+                    <br/>
+                    </div>
+                    <div>
+                      <!-- <span style="font-weight: bold;">Note</span>: Your account will be manually verified within 24 hours. In the meantime, feel free to browse our selection. -->
+                    </div>
+                  <div>
+                  <br/>
+                </div>
+              </div>
+              <h2 style="font-family: 'Montserrat', sans-serif;
+                        font-size: 18px;
+                        font-weight: 700;
+                        margin-top: 0;
+                        margin-bottom: 25px;
+                        padding-top: 7px;
+                        padding-bottom: 16px;
+                        border-bottom: 1px solid rgb(208, 208, 208);">
+              </h2>
+            </xpath>
+            <xpath expr="//div[hasclass('field-confirm_password')]" position="after">
+
+              <br/>
+              <h2 style="font-family: 'Montserrat', sans-serif;
+                        font-size: 18px;
+                        font-weight: 700;
+                        margin-top: 0;
+                        margin-bottom: 25px;
+                        padding-top: 7px;
+                        padding-bottom: 16px;
+                        border-bottom: 1px solid rgb(208, 208, 208);">
+                        Customer Information
+              </h2>
+
+
+              <div class="form-group field-account_type d-none">
+                  <label for="account_type" class="control-label">Account Required</label>
+                  <select name="account_type" class="form-control" required="required">
+                      <option value="wholesale_account">
+                        Wholesale Account - No Minium Order - (No Commitment)
+                      </option>
+                  </select>
+              </div>
+
+              <div class="form-group field-account_type">
+                  <label for="business_type" class="control-label">Account Required</label>
+                  <select name="business_type" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None">
+                      <option value="">Please Select a Trade Business Type</option>
+                      <option value="retail_furniture_store">
+                          Retail Furniture Store
+                      </option>
+                      <option value="interior_design_pro">
+                          Interior Design Professionals
+                      </option>
+                      <option value="architects_builders">
+                          Architects / Builders
+                      </option>
+                      <option value="e_commerce_store">
+                        E-commerce Store: Furniture / Interior Design
+                      </option>
+                      <option value="hospitality">
+                        Hospitality
+                      </option>
+                  </select>
+              </div>
+
+              <div class="form-group field-company_name">
+                   <label for="company_name" class="control-label">Company</label>
+                   <input type="text" name="company_name" t-att-value="company_name" id="company_name" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-phone">
+                   <label for="phone" class="control-label">Phone</label>
+                   <input type="text" name="phone" t-att-value="phone" id="phone" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-website">
+                   <label for="website" class="control-label">Website</label>
+                   <input type="text" name="website" id="website" class="form-control" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-street_name">
+                   <label for="street" class="control-label">Address</label>
+                   <input type="text" name="street" t-att-value="street" id="street" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-street">
+                   <label for="street2" class="control-label">Suite / Apt #</label>
+                   <input type="text" name="street2" t-att-value="street2" id="street2" class="form-control" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-city">
+                   <label for="city" class="control-label">City</label>
+                   <input type="text" name="city" t-att-value="city" id="city" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-country">
+                   <label for="country_id" class="control-label">Country</label>
+                   <select name="country_id" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                     t-att-autofocus="'autofocus' if login and not only_passwords else None">
+                       <option value="">Select</option>
+                       <t t-foreach="countries" t-as="country">
+                           <option t-att-value="country.id">
+                               <t t-esc="country.name" />
+                           </option>
+                       </t>
+                   </select>
+               </div>
+               <div class="form-group field-state">
+                   <label for="state_id" class="control-label">State</label>
+                   <select name="state_id" class="form-control" t-att-value="state_id" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                     t-att-autofocus="'autofocus' if login and not only_passwords else None">
+                       <option value="">Select</option>
+                       <t t-foreach="states" t-as="state">
+                           <option t-att-value="state.id">
+                               <t t-esc="state.name" />
+                           </option>
+                       </t>
+                   </select>
+               </div>
+               <div class="form-group field-zip">
+                   <label for="zip" class="control-label">Zip</label>
+                   <input type="text" name="zip" id="zip" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                 t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group field-vat">
+                    <label for="vat" class="control-label">Tax ID</label>
+                    <input type="text" name="vat" t-att-value="vat" id="vat" class="form-control" required="required" t-att-readonly="'readonly' if only_passwords else None"
+                  t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+               </div>
+               <div class="form-group">
+                    <label for="tax_certificate" class="control-label">Tax Certificate</label>
+                    <input type="file" name="tax_certificate" id="tax_certificate" class="form-control"/>
+               </div>
+
+               <div class="form-group field-comments">
+                    <label for="comments" class="control-label">Comments</label>
+                    <input type="text" name="comments" t-att-value="comments" id="comments" class="form-control" t-att-readonly="'readonly' if only_passwords else None"
+                  t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
